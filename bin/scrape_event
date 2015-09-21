@@ -1,0 +1,19 @@
+#!/usr/bin/env ruby
+
+require 'microformat_scraper'
+
+url = ARGV.last
+puts "scraping events from #{url}"
+
+page = MicroformatScraper::Page.new(url)
+parser = MicroformatScraper::EventParser.new
+
+events = parser.parse(page.content)
+puts "found #{events.count} events"
+
+events.each do |event|
+  puts "START TIME: #{event.start_time}"
+  puts "END TIME: #{event.end_time}"
+  puts "DESCRIPTION: #{event.description}"
+  puts "SUMMARY: #{event.summary}"
+end
